@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import { Question } from './components';
 
 const category = '';
 const TRIVIA_API = `https://opentdb.com/api.php?amount=1&category=${category}&difficulty=easy`;
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { question: null };
+  }
 
+  componentDidMount() {
+    fetch(TRIVIA_API)
+      .then((res) => res.json())
+      .then((question) => this.setState({ question }));
+  }
 
   render() {
     return (
@@ -17,7 +25,7 @@ class App extends Component {
         </h2>
         <hr />
         <div>
-          {/* Render question here */}
+          {this.state.question}
         </div>
       </div>
     );
